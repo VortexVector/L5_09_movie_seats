@@ -1,6 +1,4 @@
-﻿************* Module theater_system
-theater_system.py:105:0: C0327: Mixed line endings LF and CRLF (mixed-line-endings)
-
-------------------------------------------------------------------
-Your code has been rated at 9.86/10 (previous run: 9.86/10, +0.00)
+﻿
+--------------------------------------------------------------------
+Your code has been rated at 10.00/10 (previous run: 10.00/10, +0.00)
 
