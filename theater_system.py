@@ -1,4 +1,5 @@
-﻿"""Movie theater seat reservation system."""
+"""Movie theater seat reservation system."""
+
 import hashlib
 import json
 import os
@@ -10,6 +11,7 @@ SHOWS = {
     "SHOW-1": {"title": "Interstellar", "seats": 20, "booked": []},
     "SHOW-2": {"title": "Dangal", "seats": 10, "booked": []},
 }
+
 
 def reserve_seat(show_id, seat_number, system_logs=None):
     """Reserve a seat. Return True on success, False otherwise."""
@@ -37,6 +39,7 @@ def reserve_seat(show_id, seat_number, system_logs=None):
     system_logs.append(f"Reserved seat {seat_number} for {show_id}")
     return True
 
+
 def release_seat(show_id, seat_number):
     """Release a booked seat. Return True if it was booked."""
     try:
@@ -45,15 +48,18 @@ def release_seat(show_id, seat_number):
         return False
     return True
 
+
 def ticket_code(show_id, seat_number):
     """Return a short ticket code for a show and seat."""
     raw = f"{show_id}{seat_number}".encode("utf-8")
     return hashlib.sha256(raw).hexdigest()[:8]
 
+
 def dump_reservations(filename=SEATS_FILE):
     """Save the seating plan to a JSON file."""
     with open(filename, "w", encoding="utf-8") as file_obj:
         json.dump(SHOWS, file_obj)
+
 
 def load_reservations(filename=SEATS_FILE):
     """Load the seating plan from a JSON file."""
@@ -62,11 +68,14 @@ def load_reservations(filename=SEATS_FILE):
     SHOWS.clear()
     SHOWS.update(data)
 
+
 def print_seating_summary():
     """Print free seats and booked seats for every show."""
     for show in SHOWS.values():
         free = show["seats"] - len(show["booked"])
-        print(f"{show['title']}: {free} seats free, booked = {sorted(show['booked'])}")
+        booked = sorted(show["booked"])
+        print(f"{show['title']}: {free} seats free, booked = {booked}")
+
 
 def read_seat_choice(prompt, default=4):
     """Read a seat number from the user; fall back to the default."""
@@ -77,6 +86,7 @@ def read_seat_choice(prompt, default=4):
         return int(text)
     except ValueError:
         return None
+
 
 def main():
     """Run the demo."""
@@ -100,6 +110,7 @@ def main():
     print("\nLog:")
     for entry in logs:
         print(" -", entry)
+
 
 if __name__ == "__main__":
     main()
